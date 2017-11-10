@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //this 的使用
+
+        //默认绑定全局变量
+        //隐式绑定
+        //call/apply/bind函数的调用
+        //构造函数中this使用
+
+        //1.默认绑定全局变量 
+        //普通函数的调用 this的指向指向window
+        // function  fn (){
+        //     console.log(this);//window
+        //     console.log(this.a);//10
+        // }
+        // var a = 10;
+        // console.log(fn());
+
+        //2.隐式绑定
+        //2.1 当该函数作为某一个对象的属性的调用即该函数的this指向该对象;
+        // function fn (){
+        //     console.log(this.a);//5
+        // }
+        // var obj = {
+        //     a: 5,
+        //     fn:fn
+        // }
+        // console.log(obj.fn());
+        //2.2 当该对象的属性赋值给变量,不作为对象的属性调用,this指向window;
+        // function fn () {
+        //     console.log(this);//window
+        //     console.log(this.a);//5
+        // }
+        // var obj ={
+        //     a:10,
+        //     fn:fn
+        // }
+        // var arr = obj.fn;
+        // console.log(arr);//fn();
+        // var a = 5;
+        // console.log(arr());//undefined
+        //2.3  最后一个调用该函数的对象即为this的指向
+        // function  fn(){
+        //     console.log(this.a);
+        // }
+        // var obj2 ={
+        //     a:10,
+        //     fn:fn
+        // }
+        // var obj1 ={
+        //     a:2,
+        //     obj2:obj2
+        // }
+        // console.log(obj1.obj2.fn());
+
+        //3. call/bind/apply函数的调用  其中第一个参数作可以更改函数内上下文的指向即函数在运行期间的调用者
+            //3.1 当传入一个对象 指向该对象
+            // function  fn (){
+            //     console.log(this.a);//10
+            // }
+            // var obj ={
+            //     a:10
+            // }
+            // var  a = 20;
+            // console.log(fn.call(obj));
+            //3.2  当传入一个null/不传/undefined  指向window 
+            // function  fn (){
+            //     console.log(this.a);//20
+            // }
+            // var obj ={
+            //     a:10
+            // }
+            // var  a = 20;
+            // console.log(fn.call());
+            // console.log(fn.call(undefined));
+            // console.log(fn.call(null));
+            //3.3 当传入一个值类型 布尔/字符串/数值  指向其包装对象
+            // function  fn (){
+            //     console.log(this);//20
+            // }
+            // console.log(fn.call(20));//Object  Number
+            // console.log(fn.call(true));//Object Boolean
+            // console.log(fn.call('wode'));//Object  string
+            //3.4 当传入一个函数名  指向该函数的引用
+            // function fn () {
+            //     console.log(this);
+            // }
+            // function fun () {
+            //     console.log('Ok');
+            // }
+            // console.log(fn.call(fun));
+
+        //extra  
+        // apply/bind/call 的使用与区别
+        //apply/call与bind的不同在于绑定的bind的函数不会立即执行,而apply/bind会立即执行
+        //apply与call的区别在于 apply的参数是个数组的形式
+        // function fn (x,y,z) {
+        //     console.log(x,y,z);
+        //     console.log(this);
+        // }
+        // fn.call(null,[1,2,3]);
+        // fn.call(null,1,2,3);
+        // fn.apply(null,[1,2,3]);
+
+
+    	// var obj = { name: '张三' };
+        // document.addEventListener('click', onClick.bind(obj, 'p1', 'p2'), false);
+        // function onClick(a,b) {
+        //     console.log(this.name,a,b);
+        // }
+
+    	// var obj = { name: '张三' };
+        // document.addEventListener('click', onClick.call(obj, 'p1', 'p2'), false);
+        // function onClick(a,b) {
+        //     console.log(this.name,a,b);
+        // }    
+        //应用场景
+        //实现继承
+        // function Add () {
+        //     this.name = '张三',
+        //     this.age = 18
+        // }
+        // function Get () {
+        //     Add.call(this),
+        //     this.sex = '男'
+        // }
+        // var fun =  new Get();
+        // console.log(fun);
+
+        //移花接木
+        // 对象 分为三类
+        // 1、用户自定义对象
+        // 2、内建对象，javascript中的对象，如Array，Math，Date等。
+        // 3、宿主对象，由浏览器提供的对象，如window对象。
+        // 伪数组可以添加数组的方法 
+ 
+        // function fun () {
+        //     Array.prototype.forEach.call(arguments,function(item){
+        //         console.log(item); 
+        //     })
+        // }
+        // fun(1,2,3,4);
+
+        // var  arr = [21,32,45,2,6]
+        // console.log(Math.max.apply(null,arr));
+       
+
+        //4.构造函数中的this指向  构造函数的this指向指向的是new出来的对象
+        // function Fun(){
+        //     this.age = 18,
+        //     this.name = '张三',
+        //     console.log(this);
+        // }
+        // var fn = new Fun();
+        // console.log(fn);
+        
+        
+        
+
+
+    </script>
+</body>
+</html>
